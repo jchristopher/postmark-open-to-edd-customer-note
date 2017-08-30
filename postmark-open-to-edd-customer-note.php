@@ -38,11 +38,11 @@ class PmeddcnPostmarkOpenToEddCustomerNote {
 			add_action( 'admin_notices', array( $this, 'admin_notice__postmark_approved' ) );
 
 			return;
+		} else {
+			// Retrieve Postmark API key
+			$postmark_for_wordpress = new Postmark_Mail();
+			$this->postmark_api_key = ! empty( $postmark_for_wordpress->settings['api_key'] ) ? $postmark_for_wordpress->settings['api_key'] : '';
 		}
-
-		// Retrieve Postmark API key
-		$postmark_for_wordpress = new Postmark_Mail();
-		$this->postmark_api_key = ! empty( $postmark_for_wordpress->settings['api_key'] ) ? $postmark_for_wordpress->settings['api_key'] : '';
 
 		add_action( 'rest_api_init', function () {
 			$rest_route = apply_filters( 'pmeddcn_rest_route', 'pmeddcn/v1' );
